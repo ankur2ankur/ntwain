@@ -266,6 +266,7 @@ public partial class Form1 : Form
 
     private void LoadCapInfoList()
     {
+        SetCap();
         twain.GetCapValues(CAP.CAP_SUPPORTEDCAPS, out ValueContainer<CAP> capsContainer);
         twain.GetCapValues(CAP.CAP_EXTENDEDCAPS, out ValueContainer<CAP> extendedContainer);
         var caps = capsContainer.GetValues().ToList();
@@ -295,6 +296,22 @@ public partial class Form1 : Form
             capListView.Items.Add(it);
         }
     }
+
+    private void SetCap()
+    {
+        var frame = new TW_FRAME
+        {
+            Left = 0.0f,
+            Top = 0.0f,
+            Right = 8.27f,   // width
+            //Bottom = 11.69f   // height
+            Bottom = 10.11f   // height
+        };
+
+        //twain.GetCapValues(CAP.CAP_SUPPORTEDCAPS, out ValueContainer<CAP> capsContainer);
+        twain.SetCap(CAP.ICAP_FRAMES, frame);
+    }
+
 
     private string GetFriendlyName(CAP c)
     {
